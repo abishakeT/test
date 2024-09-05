@@ -1,0 +1,75 @@
+<script>
+import * as fabric from 'fabric';
+
+export default {
+
+    data() {
+        return {
+            canvas: null,
+            points: [
+                // Top part of the shirt (neck and shoulders)
+                { x: 150, y: 20 },  // Left shoulder
+                { x: 130, y: 60 },  // Left sleeve top
+                { x: 90, y: 100 }, // Left sleeve bottom
+                { x: 90, y: 200 }, // Left side of the shirt
+                { x: 160, y: 200 }, // Left bottom part of the shirt
+                // { x: 160, y: 200 }, // Bottom center of the shirt (for symmetry)
+                // { x: 240, y: 200 }, // Bottom center of the shirt (other side)
+                { x: 240, y: 200 }, // Right bottom part of the shirt
+                { x: 310, y: 200 }, // Right side of the shirt
+                { x: 310, y: 100 }, // Right sleeve bottom
+                { x: 270, y: 60 },  // Right sleeve top
+                { x: 250, y: 20 },  // Right shoulder
+                { x: 200, y: 20 },  // Neck (center top of the shirt)
+            ],
+            canvasWidth: 500,
+            canvasHeight: 400,
+        }
+    },
+    mounted() {
+        this.canvas = new fabric.Canvas(this.$refs.fabricCanvas);
+        this.polygon = new fabric.Polygon(this.points);
+
+        this.polygon.set({
+            stroke: 'red',
+            strokeWidth: 3,
+            fill: '#ccc',
+
+        })
+
+        this.canvas.add(this.polygon);
+        // this.polygon.set('angle', 45);
+        // this.polygon.set({ scale: 1.5, left: 20, top: 20 });
+    },
+    methods: {
+        createPolygon() {
+            this.polygon = new fabric.Polygon(this.points);
+
+            this.polygon.set({
+                stroke: 'red',
+                strokeWidth: 3,
+                fill: '#ccc',
+
+            })
+
+            this.canvas.add(this.polygon);
+            // this.polygon.set('angle', 45);
+            // this.polygon.set({ scale: 1.5, left: 20, top: 20 });
+
+        }
+    }
+}
+</script>
+
+<template>
+    <div>
+        <canvas ref="fabricCanvas" :width="canvasWidth" :height="canvasHeight"></canvas>
+        <button @click="createPolygon">Add Polygon</button>
+    </div>
+</template>
+
+<style scoped>
+canvas {
+    border: 1px solid black;
+}
+</style>
